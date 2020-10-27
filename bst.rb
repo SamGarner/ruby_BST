@@ -53,18 +53,29 @@ class Tree
       node.right_child = insert(value, node.right_child)
     end
 
-    node
-    
+    node # imperative
+
+###### recursive return lesson
     # 2, 8 node
     #   2 < 8
-    #     insert(2, 4)
+    #     8.left_child = insert(2, 4)
     #       2 < 4
-    #         insert(2,1)
+    #         4.left_child = insert(2,1)
     #           2 > 1
-    #             insert(2, 3)
+    #             1.right_child = insert(2, 3)
     #               2 < 3
-    #                 node.left_child = insert(2, nil) # left
+    #                 3.left_child = insert(2, nil) # left
     #                   return Node.new(2)
+    # when no final 'return node', Node.new(2) passed all the way back up as return value
+                    # 3.left_child = Node.new(2)
+                  #  1.right_child = Node.new(2)
+                # 4.left_child = Node.new(2)
+              # 8.left_child = Node.new(2)
+    # when final 'return node', 
+                    # 3.left_child = 2
+                  #  1.right_child = 3
+                # 4.left_child = 1
+              # 8.left_child = 4
 
     # if equal, return
     # if less
