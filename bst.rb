@@ -39,12 +39,12 @@ class Tree
     root
   end
 
-  def insert(value, node = root) # need self here ?
-    return self.root = Node.new(value) if root.nil?
+  def insert(value, node = root)
+    # return self.root = Node.new(value) if root.nil? 
+    # would only matter if tree is empty and can't have a tree from an empty array anyway
 
-    return Node.new(value) if node.nil? # value redundant?
-    # if root nil, add value as root and return
-    # compare value to root
+    return Node.new(value) if node.nil?
+
     return node if node.value == value
 
     if value < node.value
@@ -77,14 +77,6 @@ class Tree
                 # 4.left_child = 1
               # 8.left_child = 4
 
-    # if equal, return
-    # if less
-      # left_child.nil? add as left node
-      # else recurse left
-    # if more
-      # left_child.nil? add as left node
-      # else recurse left
-    # return root
   end
 
 # build_tree([1, 2, 3], 0, 2)
