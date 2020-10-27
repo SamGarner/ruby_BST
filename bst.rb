@@ -1,5 +1,7 @@
 # frozen_string_literal: false
 
+require 'pry'
+
 # node class
 class Node
   include Comparable
@@ -19,7 +21,7 @@ end
 
 # tree class
 class Tree
-  attr_reader :root
+  attr_accessor :root
 
   def initialize(array)
     tree_array = array.uniq.sort
@@ -31,10 +33,47 @@ class Tree
 
     mid = (first_index + last_index) / 2
     root = Node.new(tree_array[mid])
-    root.left_child = build_tree(tree_array, first_index, mid - 1) # WHY WORKS WHEN first_index but not 0 ???
+    root.left_child = build_tree(tree_array, first_index, mid - 1) # first_index not 0 !!!
     root.right_child = build_tree(tree_array, mid + 1, last_index)
 
     root
+  end
+
+  def insert(value, node = root) # need self here ?
+    return self.root = Node.new(value) if root.nil?
+
+    return Node.new(value) if node.nil? # value redundant?
+    # if root nil, add value as root and return
+    # compare value to root
+    return node if node.value == value
+
+    if value < node.value
+      node.left_child = insert(value, node.left_child)
+    else
+      node.right_child = insert(value, node.right_child)
+    end
+
+    node
+    
+    # 2, 8 node
+    #   2 < 8
+    #     insert(2, 4)
+    #       2 < 4
+    #         insert(2,1)
+    #           2 > 1
+    #             insert(2, 3)
+    #               2 < 3
+    #                 node.left_child = insert(2, nil) # left
+    #                   return Node.new(2)
+
+    # if equal, return
+    # if less
+      # left_child.nil? add as left node
+      # else recurse left
+    # if more
+      # left_child.nil? add as left node
+      # else recurse left
+    # return root
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -68,5 +107,8 @@ class Tree
   end
 end
 
-p test_tree = Tree.new([3, 1, 2])
+example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+test_tree = Tree.new(example)
+test_tree.pretty_print
+test_tree.insert(2)
 test_tree.pretty_print
