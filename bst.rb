@@ -12,7 +12,7 @@ class Node
     value <=> other.value
   end
 
-  def initialize(value)
+  def initialize(value = nil)
     @value = value
     @left_child = nil
     @right_child = nil
@@ -84,24 +84,26 @@ class Tree
 
     case
       #binding.pry
+    when value < node.value
+      #binding.pry
+      node.left_child = delete(value, node.left_child)
+    when value > node.value
+      node.right_child = delete(value, node.right_child)
     when value == node.value
-      if node.right_child.nil? && node.left_child.nil?
-        node.value = nil # how to ~remove~ rather than just setting to nil ?
-        return "leaf #{value} deleted"
-      elsif node.left_child.nil?
-        node.value = node.right_child
-        node.left_child = (node.left_child).left_child
-        node.right_child = (node.right_child).right_child
+      # if node.right_child.nil? && node.left_child.nil?
+      #   node.value = nil # how to ~remove~ rather than just setting to nil ?
+      if node.left_child.nil?
+        return node.right_child
+        # node.left_child = (node.left_child).left_child
+        # node.right_child = (node.right_child).right_child
       elsif node.right_child.nil?
-        # reverse of left_child.nil? above
+        return node.left_child
       else # has two children
         #
       end
-    when value < node.value
-      delete(value, node.left_child)
-    when value > node.value
-      delete(value, node.right_child)
+      #binding.pry
     end
+    node
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -128,6 +130,7 @@ class Tree
 #         build_tree([1, 2, 3], 3, 2)
 #         nil
 
+  # pretty print method borrowed from The Odin Project
   def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
     puts "#{prefix}#{is_left ? '└── ' : '┌── '}#{node.value}"
@@ -139,4 +142,6 @@ example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 test_tree = Tree.new(example)
 test_tree.pretty_print
 test_tree.delete(7)
+test_tree.pretty_print
+test_tree.delete(5)
 test_tree.pretty_print
