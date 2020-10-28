@@ -79,6 +79,31 @@ class Tree
 
   end
 
+  def delete(value, node = root)
+    return node if node.nil?
+
+    case
+      #binding.pry
+    when value == node.value
+      if node.right_child.nil? && node.left_child.nil?
+        node.value = nil # how to ~remove~ rather than just setting to nil ?
+        return "leaf #{value} deleted"
+      elsif node.left_child.nil?
+        node.value = node.right_child
+        node.left_child = (node.left_child).left_child
+        node.right_child = (node.right_child).right_child
+      elsif node.right_child.nil?
+        # reverse of left_child.nil? above
+      else # has two children
+        #
+      end
+    when value < node.value
+      delete(value, node.left_child)
+    when value > node.value
+      delete(value, node.right_child)
+    end
+  end
+
 # build_tree([1, 2, 3], 0, 2)
 #   mid = 1
 #   root = tree_array[1] = 2             ####
@@ -113,5 +138,5 @@ end
 example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
 test_tree = Tree.new(example)
 test_tree.pretty_print
-test_tree.insert(2)
+test_tree.delete(7)
 test_tree.pretty_print
