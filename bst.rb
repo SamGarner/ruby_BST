@@ -161,6 +161,22 @@ class Tree
     tree_values.flatten
   end
 
+  def height
+    # 
+  end
+
+  def depth(value, node = root, depth = 0)
+    return 0 if value == node.value
+    return 0 if node.nil?
+
+    if value < node.value
+      depth = 1 + depth(value, node.left_child)
+    else
+      depth = 1 + depth(value, node.right_child)
+    end
+    depth
+  end
+
 # build_tree([1, 2, 3], 0, 2)
 #   mid = 1
 #   root = tree_array[1] = 2             ####
@@ -197,11 +213,12 @@ example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
 p test_tree.level_order
-p test_tree.in_order
-p 'pre:'
-p test_tree.pre_order
-p 'post:'
-p test_tree.post_order
+p test_tree.depth(67)
+# p test_tree.in_order
+# p 'pre:'
+# p test_tree.pre_order
+# p 'post:'
+# p test_tree.post_order
 
 # puts test_tree.find(9)
 # puts test_tree.find(42)
