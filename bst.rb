@@ -79,6 +79,21 @@ class Tree
 
   end
 
+  def find(value, node = root)
+    # compare value to node
+    # if less than node, recursive to left
+    # if greater than node, recursive to right
+    return node if value == node.value
+    return 'Value does not exist in the tree yet' if node.nil?
+
+    if value < node.value
+      find(value, node.left_child)
+    else
+      find(value, node.right_child)
+    end
+    # node
+  end
+# 
   def delete(value, node = root)
     return node if node.nil?
 
@@ -143,5 +158,10 @@ end
 example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
-test_tree.delete(1)
-test_tree.pretty_print
+# test_tree.find(7)
+# test_tree.find(3)
+puts test_tree.find(9)
+# test_tree.find(42) # nil class error right now
+
+# test_tree.delete(1)
+# test_tree.pretty_print
