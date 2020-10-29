@@ -122,13 +122,43 @@ class Tree
 
   def level_order(node = root, queue = [], tree_values = [])
     return if node.nil?
-   
+
     queue << node.left_child unless node.left_child.nil?
     queue << node.right_child unless node.right_child.nil?
     tree_values << node.value
 
     tree_values << level_order(queue[0], queue[1..-1]) if queue.size.positive?
     return tree_values.flatten
+  end
+
+  # depth first traversal
+  def in_order(node = root, tree_values = [])
+    return if node.nil?
+
+    tree_values << in_order(node.left_child) unless node.left_child.nil?
+    tree_values << node.value
+    tree_values << in_order(node.right_child) unless node.right_child.nil?
+    tree_values.flatten
+  end
+
+  # depth first traversal
+  def pre_order(node = root, tree_values = [])
+    return if node.nil?
+
+    tree_values << node.value
+    tree_values << pre_order(node.left_child) unless node.left_child.nil?
+    tree_values << pre_order(node.right_child) unless node.right_child.nil?
+    tree_values.flatten
+  end
+
+  # depth first traversal
+  def post_order(node = root, tree_values = [])
+    return if node.nil?
+
+    tree_values << post_order(node.left_child) unless node.left_child.nil?
+    tree_values << post_order(node.right_child) unless node.right_child.nil?
+    tree_values << node.value
+    tree_values.flatten
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -167,6 +197,12 @@ example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
 p test_tree.level_order
+p test_tree.in_order
+p 'pre:'
+p test_tree.pre_order
+p 'post:'
+p test_tree.post_order
+
 # puts test_tree.find(9)
 # puts test_tree.find(42)
 # test_tree.delete(1)
