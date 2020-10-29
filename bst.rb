@@ -86,24 +86,23 @@ class Tree
       #binding.pry
     when value < node.value
       #binding.pry
-      node.left_child = delete(value, node.left_child)
+      node.left_child = delete(value, node.left_child)  # changig the pointer
     when value > node.value
       node.right_child = delete(value, node.right_child)
     when value == node.value
       # if node.right_child.nil? && node.left_child.nil?
       #   node.value = nil # how to ~remove~ rather than just setting to nil ?
-      if node.left_child.nil?
-        return node.right_child
-        # node.left_child = (node.left_child).left_child
-        # node.right_child = (node.right_child).right_child
-      elsif node.right_child.nil?
-        return node.left_child
-      else # has two children
-        #
+      return node.right_child if node.left_child.nil?
+      return node.left_child if node.right_child.nil?
+      # has two children
+      current_node = node.right_child
+      until current_node.left_child.nil?
+        current_node = current_node.left_child
       end
+      return current_node
       #binding.pry
     end
-    node
+    node  ##
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -138,10 +137,10 @@ class Tree
   end
 end
 
-example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
-test_tree.delete(7)
-test_tree.pretty_print
+# test_tree.delete(7)
+# test_tree.pretty_print
 test_tree.delete(5)
 test_tree.pretty_print
