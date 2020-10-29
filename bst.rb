@@ -122,12 +122,13 @@ class Tree
 
   def level_order(node = root, queue = [], tree_values = [])
     return if node.nil?
+   
     queue << node.left_child unless node.left_child.nil?
     queue << node.right_child unless node.right_child.nil?
     tree_values << node.value
 
-    tree_values << level_order(queue[0], queue[1..-1]) if queue.size > 0
-    return tree_values
+    tree_values << level_order(queue[0], queue[1..-1]) if queue.size.positive?
+    return tree_values.flatten
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -165,7 +166,7 @@ end
 example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
-puts test_tree.level_order.join(',')
+p test_tree.level_order
 # puts test_tree.find(9)
 # puts test_tree.find(42)
 # test_tree.delete(1)
