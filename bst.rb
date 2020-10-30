@@ -199,7 +199,7 @@ class Tree
 
   def rebalance(array = self.in_order)
     return p 'The binary tree is already balanced' if @root == build_tree(array)
-    
+
     @root = build_tree(array)
   end
 
@@ -235,59 +235,26 @@ class Tree
   end
 end
 
-example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
-test_tree = Tree.new(example)
-# # p test_tree = test_tree.build_tree(test_tree, 0, test_tree.length)
-# test_tree.pretty_print
-# test_tree.rebalance
-# test_tree.pretty_print
-# # p test_tree.level_order
-# # p test_tree.in_order
+# example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
+# test_tree = Tree.new(example)
 
-
-# test_tree.delete(4)
-# test_tree.delete(6)
-# test_tree.pretty_print
-# p test_tree.balanced?
-# test_tree.delete(5)
-# test_tree.delete(1)
-# test_tree.pretty_print
-# p test_tree.balanced?
-# test_tree.delete(2)
-# test_tree.pretty_print
-# p test_tree.balanced?
-# test_tree.delete(3)
-# test_tree.pretty_print
-# p test_tree.level_order
-# p test_tree.depth(67)
-# p test_tree.depth(7)
-# p test_tree.depth(8)
-# p test_tree.depth(42)
-p test_tree.balanced?
-# p test_tree
-p test_tree.in_order
-# p test_tree
+test_tree = Tree.new(Array.new(15) { rand(1..100) })
 test_tree.pretty_print
-# binding.pry
-
-# test_tree = test_tree.rebalance
+p test_tree.balanced?
+p test_tree.level_order
+p test_tree.pre_order
+p test_tree.post_order
+p test_tree.in_order
+test_tree.insert(133)
+test_tree.insert(172)
+test_tree.insert(1509)
+test_tree.insert(2201)
+test_tree.pretty_print
+p test_tree.balanced?
 test_tree.rebalance
-# test_tree.pretty_print
-
-# p test_tree.height(7)
-# p test_tree.height(23)
-# p test_tree.height(1)
-# p test_tree.height(4)
-# p test_tree.height(9)
-# p test_tree.height(47)
-
-# p test_tree.in_order
-# p 'pre:'
-# p test_tree.pre_order
-# p 'post:'
-# p test_tree.post_order
-
-# puts test_tree.find(9)
-# puts test_tree.find(42)
-# test_tree.delete(1)
-# test_tree.pretty_print
+test_tree.pretty_print
+p test_tree.balanced?
+p test_tree.level_order
+p test_tree.pre_order
+p test_tree.post_order
+p test_tree.in_order
