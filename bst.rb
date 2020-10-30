@@ -197,6 +197,12 @@ class Tree
     # binding.pry
   end
 
+  def rebalance(array = self.in_order)
+    return 'The binary tree is already balanced' if balanced?
+
+    @root = build_tree(array)
+  end
+
 # build_tree([1, 2, 3], 0, 2)
 #   mid = 1
 #   root = tree_array[1] = 2             ####
@@ -231,7 +237,14 @@ end
 
 example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
-test_tree.pretty_print
+# # p test_tree = test_tree.build_tree(test_tree, 0, test_tree.length)
+# test_tree.pretty_print
+# test_tree.rebalance
+# test_tree.pretty_print
+# # p test_tree.level_order
+# # p test_tree.in_order
+
+
 test_tree.delete(4)
 test_tree.delete(6)
 test_tree.pretty_print
@@ -251,6 +264,15 @@ test_tree.pretty_print
 # p test_tree.depth(8)
 # p test_tree.depth(42)
 p test_tree.balanced?
+# p test_tree
+p test_tree.in_order
+# p test_tree
+test_tree.pretty_print
+# binding.pry
+
+# test_tree = test_tree.rebalance
+test_tree.rebalance
+test_tree.pretty_print
 
 # p test_tree.height(7)
 # p test_tree.height(23)
