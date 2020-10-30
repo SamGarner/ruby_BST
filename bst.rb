@@ -161,8 +161,34 @@ class Tree
     tree_values.flatten
   end
 
-  def height
-    # 
+  def height(value, node = root)
+    return height(value, node.left_child) if value < node.value
+    return height(value, node.right_child) if value > node.value
+
+    return 0 if node.nil? ## counting to leaf part, can remove?
+    return 0 if node.right_child.nil? && node.left_child.nil?
+   
+    # return 0 if count_to_leaf(node).zero?
+    # count_to_leaf(node) - 1
+    count_to_leaf(node)
+    # left_count = 1 + height(node.left_child, node.left_child)
+    # right_count = 1 + height(node.right_child, node.right_child)
+    # if left_count < right_count
+    #   return right_count
+    # else
+    #   return left_count
+    # end
+  end
+
+  def count_to_leaf(node = root)
+    return -1 if node.nil?
+    left_count = 1 + count_to_leaf(node.left_child)
+    right_count = 1 + count_to_leaf(node.right_child)
+    if left_count < right_count
+      return right_count
+    else
+      return left_count
+    end
   end
 
   def depth(value, node = root, depth = 0)
@@ -213,7 +239,13 @@ example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
 p test_tree.level_order
-p test_tree.depth(67)
+# p test_tree.depth(67)
+p test_tree.height(7)
+p test_tree.height(23)
+p test_tree.height(1)
+p test_tree.height(4)
+p test_tree.height(9)
+
 # p test_tree.in_order
 # p 'pre:'
 # p test_tree.pre_order
