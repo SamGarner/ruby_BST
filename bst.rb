@@ -182,14 +182,19 @@ class Tree
     # return nil if node.nil?
     raise "#{value} does not exist in the binary  tree" if node.nil?
     return 0 if value == node.value
-  
+
     # return "#{value} does not exist in the tree" if node.left_child.nil? && node.right_child.nil?
- 
+
     if value < node.value
       1 + depth(value, node.left_child)
     else
       1 + depth(value, node.right_child)
     end
+  end
+
+  def balanced?(node = root)
+    (count_to_leaf(node.left_child) - count_to_leaf(node.right_child)).abs < 2
+    # binding.pry
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -227,11 +232,25 @@ end
 example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
-p test_tree.level_order
-p test_tree.depth(67)
-p test_tree.depth(7)
-p test_tree.depth(8)
-p test_tree.depth(42)
+test_tree.delete(4)
+test_tree.delete(6)
+test_tree.pretty_print
+p test_tree.balanced?
+test_tree.delete(5)
+test_tree.delete(1)
+test_tree.pretty_print
+p test_tree.balanced?
+test_tree.delete(2)
+test_tree.pretty_print
+p test_tree.balanced?
+test_tree.delete(3)
+test_tree.pretty_print
+# p test_tree.level_order
+# p test_tree.depth(67)
+# p test_tree.depth(7)
+# p test_tree.depth(8)
+# p test_tree.depth(42)
+p test_tree.balanced?
 
 # p test_tree.height(7)
 # p test_tree.height(23)
