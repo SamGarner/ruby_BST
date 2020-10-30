@@ -162,33 +162,20 @@ class Tree
   end
 
   def height(value, node = root)
+    return "#{value} does not exist in the tree" if node.nil?
     return height(value, node.left_child) if value < node.value
     return height(value, node.right_child) if value > node.value
-
-    return 0 if node.nil? ## counting to leaf part, can remove?
-    return 0 if node.right_child.nil? && node.left_child.nil?
-   
-    # return 0 if count_to_leaf(node).zero?
-    # count_to_leaf(node) - 1
+    # return 0 if node.right_child.nil? && node.left_child.nil?
     count_to_leaf(node)
-    # left_count = 1 + height(node.left_child, node.left_child)
-    # right_count = 1 + height(node.right_child, node.right_child)
-    # if left_count < right_count
-    #   return right_count
-    # else
-    #   return left_count
-    # end
   end
 
   def count_to_leaf(node = root)
     return -1 if node.nil?
+
     left_count = 1 + count_to_leaf(node.left_child)
     right_count = 1 + count_to_leaf(node.right_child)
-    if left_count < right_count
-      return right_count
-    else
-      return left_count
-    end
+
+    left_count < right_count ? right_count : left_count # return the higher count
   end
 
   def depth(value, node = root, depth = 0)
@@ -245,6 +232,7 @@ p test_tree.height(23)
 p test_tree.height(1)
 p test_tree.height(4)
 p test_tree.height(9)
+p test_tree.height(47)
 
 # p test_tree.in_order
 # p 'pre:'
