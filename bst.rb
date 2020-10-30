@@ -80,7 +80,7 @@ class Tree
   end
 
   def find(value, node = root)
-    return 'Value does not exist in the tree yet' if node.nil?
+    return 'Value does not exist in the binary tree yet' if node.nil?
     return node if value == node.value
 
     if value < node.value
@@ -162,7 +162,7 @@ class Tree
   end
 
   def height(value, node = root)
-    return "#{value} does not exist in the tree" if node.nil?
+    return "#{value} does not exist in the binary tree" if node.nil?
     return height(value, node.left_child) if value < node.value
     return height(value, node.right_child) if value > node.value
     # return 0 if node.right_child.nil? && node.left_child.nil?
@@ -179,15 +179,17 @@ class Tree
   end
 
   def depth(value, node = root, depth = 0)
+    # return nil if node.nil?
+    raise "#{value} does not exist in the binary  tree" if node.nil?
     return 0 if value == node.value
-    return 0 if node.nil?
-
+  
+    # return "#{value} does not exist in the tree" if node.left_child.nil? && node.right_child.nil?
+ 
     if value < node.value
-      depth = 1 + depth(value, node.left_child)
+      1 + depth(value, node.left_child)
     else
-      depth = 1 + depth(value, node.right_child)
+      1 + depth(value, node.right_child)
     end
-    depth
   end
 
 # build_tree([1, 2, 3], 0, 2)
@@ -226,13 +228,17 @@ example = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 6, 2]
 test_tree = Tree.new(example)
 test_tree.pretty_print
 p test_tree.level_order
-# p test_tree.depth(67)
-p test_tree.height(7)
-p test_tree.height(23)
-p test_tree.height(1)
-p test_tree.height(4)
-p test_tree.height(9)
-p test_tree.height(47)
+p test_tree.depth(67)
+p test_tree.depth(7)
+p test_tree.depth(8)
+p test_tree.depth(42)
+
+# p test_tree.height(7)
+# p test_tree.height(23)
+# p test_tree.height(1)
+# p test_tree.height(4)
+# p test_tree.height(9)
+# p test_tree.height(47)
 
 # p test_tree.in_order
 # p 'pre:'
